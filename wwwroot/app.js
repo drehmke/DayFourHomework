@@ -4,10 +4,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 // Declare Parent class - I want it to implement IProduct so that I know I have these properties
+//abstract class Product implements IProduct {
 var Product = (function () {
-    function Product(name, price) {
+    function Product(name, price, productType) {
         this.name = name;
         this.price = price;
+        this.productType = productType;
     }
     return Product;
 }());
@@ -15,7 +17,7 @@ var Product = (function () {
 var Cat = (function (_super) {
     __extends(Cat, _super);
     function Cat(name, price, age) {
-        _super.call(this, name, price);
+        _super.call(this, name, price, "Cat"); // hardcoding the productType becuase at this point, I know what it _should_ be
         this.age = age;
         this.age = age;
     }
@@ -24,7 +26,7 @@ var Cat = (function (_super) {
 var Dog = (function (_super) {
     __extends(Dog, _super);
     function Dog(name, price, canFetch, earLength) {
-        _super.call(this, name, price);
+        _super.call(this, name, price, "Dog");
         this.canFetch = canFetch;
         this.earLength = earLength;
         this.canFetch = canFetch;
@@ -35,7 +37,7 @@ var Dog = (function (_super) {
 var Toy = (function (_super) {
     __extends(Toy, _super);
     function Toy(name, price, material) {
-        _super.call(this, name, price);
+        _super.call(this, name, price, "Toy");
         this.material = material;
         this.material = material;
     }
@@ -55,18 +57,20 @@ var dog4 = new Dog("Princess", 43.86, false, "short");
 var toy1 = new Toy("Pull Toy", 2.59, "string");
 var toy2 = new Toy("Squeaky Newspaper", 3.65, "rubber");
 var toy3 = new Toy("Laser Pointer", 5.36, "metal");
+//console.log(cat1);
 // Setup my array of products - they should all use the IProduct interface
 var inventory = [cat1, cat2, cat3, cat4, cat5, cat6, dog1, dog2, dog3, dog4, toy1, toy2, toy3];
 // Fun time!
 var btnAll = document.getElementById('all');
 var btnCat = document.getElementById('cats');
 var btnDog = document.getElementById('dogs');
+var btnToy = document.getElementById('toys');
 function showProductDetails(products, display) {
     if (display === void 0) { display = "all"; }
     for (var _i = 0, products_1 = products; _i < products_1.length; _i++) {
         var prod = products_1[_i];
-        var typeThis = void 0;
         var txtDisplay = void 0;
+        var typeThis = void 0;
         if (prod.age) {
             typeThis = "cat";
         }
